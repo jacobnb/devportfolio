@@ -49,6 +49,7 @@ $border: #dcd9d9;
 $heading: #374054;
 $text: #74808a;
 
+$headerHeight: -80px;
 /*
     ---------------------
     ----- 2. Mixins -----
@@ -143,6 +144,12 @@ body {
     }
 }
 
+.nav-up {
+top: $headerHeight;
+}
+.nav-down {
+    top: 0px;
+}
 header {
     position: absolute;
     top: 0;

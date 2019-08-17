@@ -80,6 +80,8 @@
     // Open mobile menu
     $('#mobile-menu-open').click(function () {
         $('header, body').addClass('active');
+        // show navbar on mobile
+        $('header').removeClass('nav-up');
     });
 
     // Close mobile menu
@@ -98,7 +100,7 @@
 })(jQuery);
 
 
-// TODO: https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c
+// https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c
 var didScroll
 var lastScrollTop = 0;
 var delta = 5;
@@ -116,5 +118,20 @@ setInterval(function(){
 }, 250);
 
 function hasScrolled() {
-
+    var st = $(this).scrollTop();
+    if (Math.abs(lastScrollTop - st) <= delta)
+        return;
+    // If current position > last position AND scrolled past navbar...
+    // active class added while on mobile, don't hide on mobile
+if (st > lastScrollTop && st > navbarHeight && !$('header').hasClass('active')){
+    // Scroll Down
+    $('header').addClass('nav-up');
+  } else {
+    // Scroll Up
+    // If did not scroll past the document (possible on mac)...
+    if(st + $(window).height() < $(document).height()) { 
+      $('header').removeClass('nav-up');
+    }
+  }
+  lastScrollTop = st;
 }
