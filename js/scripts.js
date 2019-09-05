@@ -8,15 +8,16 @@
 
     Description: This file contains all the scripts associated with the single-page
     portfolio website.
+
 */
 
-(function($) {
+(function ($) {
 
     // Remove no-js class
     $('html').removeClass('no-js');
 
     // Animate to section when nav is clicked
-    $('header a').click(function(e) {
+    $('header a').click(function (e) {
 
         // Treat as normal link if no-scroll class
         if ($(this).hasClass('no-scroll')) return;
@@ -36,14 +37,14 @@
     });
 
     // Scroll to top
-    $('#to-top').click(function() {
+    $('#to-top').click(function () {
         $('html, body').animate({
             scrollTop: 0
         }, 500);
     });
 
     // Scroll to first element
-    $('#lead-down span').click(function() {
+    $('#lead-down span').click(function () {
         var scrollDistance = $('#lead').next().offset().top;
         $('html, body').animate({
             scrollTop: scrollDistance + 'px'
@@ -51,47 +52,86 @@
     });
 
     // Create timeline
-    $('#experience-timeline').each(function() {
+    $('#experience-timeline').each(function () {
 
         $this = $(this); // Store reference to this
         $userContent = $this.children('div'); // user content
 
         // Create each timeline block
-        $userContent.each(function() {
+        $userContent.each(function () {
             $(this).addClass('vtimeline-content').wrap('<div class="vtimeline-point"><div class="vtimeline-block"></div></div>');
         });
 
         // Add icons to each block
-        $this.find('.vtimeline-point').each(function() {
+        $this.find('.vtimeline-point').each(function () {
             $(this).prepend('<div class="vtimeline-icon"><i class="fa fa-map-marker"></i></div>');
         });
 
         // Add dates to the timeline if exists
-        $this.find('.vtimeline-content').each(function() {
+        $this.find('.vtimeline-content').each(function () {
             var date = $(this).data('date');
             if (date) { // Prepend if exists
-                $(this).parent().prepend('<span class="vtimeline-date">'+date+'</span>');
+                $(this).parent().prepend('<span class="vtimeline-date">' + date + '</span>');
             }
         });
 
     });
 
     // Open mobile menu
-    $('#mobile-menu-open').click(function() {
+    $('#mobile-menu-open').click(function () {
         $('header, body').addClass('active');
+        // show navbar on mobile
+        $('header').removeClass('nav-up');
     });
 
     // Close mobile menu
-    $('#mobile-menu-close').click(function() {
+    $('#mobile-menu-close').click(function () {
         $('header, body').removeClass('active');
     });
 
     // Load additional projects
-    $('#view-more-projects').click(function(e){
+    $('#view-more-projects').click(function (e) {
         e.preventDefault();
-        $(this).fadeOut(300, function() {
+        $(this).fadeOut(300, function () {
             $('#more-projects').fadeIn(300);
         });
     });
 
 })(jQuery);
+
+
+// https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c
+var didScroll
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+setInterval(function(){
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+    if (Math.abs(lastScrollTop - st) <= delta)
+        return;
+    // If current position > last position AND scrolled past navbar...
+    // active class added while on mobile, don't hide on mobile
+if (st > lastScrollTop && st > navbarHeight && !$('header').hasClass('active')){
+    // Scroll Down
+    $('header').addClass('nav-up');
+  } else {
+    // Scroll Up
+    // If did not scroll past the document (possible on mac)...
+    if(st + $(window).height() < $(document).height()) { 
+      $('header').removeClass('nav-up');
+    }
+  }
+  lastScrollTop = st;
+}
