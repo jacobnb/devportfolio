@@ -11,6 +11,7 @@
 
 */
 
+
 (function ($) {
 
     // Remove no-js class
@@ -99,6 +100,14 @@
 
 })(jQuery);
 
+
+$("#startGame").click( function(){
+    $("body#plain").replaceWith(
+        '<body>'+
+        '<canvas></canvas>'+
+        '</body>'
+    );
+});
 
 // https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c
 var didScroll
