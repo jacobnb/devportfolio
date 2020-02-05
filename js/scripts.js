@@ -11,6 +11,15 @@
 
 */
 
+$('#PlayGame').click(function(){
+    window.requestAnimationFrame(gameLoop);
+});
+function gameLoop(deltaTime){
+    console.log(deltaTime);
+    window.requestAnimationFrame(gameLoop);
+}
+
+
 (function ($) {
 
     // Remove no-js class
@@ -96,8 +105,11 @@
             $('#more-projects').fadeIn(300);
         });
     });
-
 })(jQuery);
+
+
+
+
 
 
 // https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c
@@ -135,3 +147,7 @@ if (st > lastScrollTop && st > navbarHeight && !$('header').hasClass('active')){
   }
   lastScrollTop = st;
 }
+
+
+
+
