@@ -15,6 +15,7 @@
     "dev"
   ],
   "author": "Jacob Biederman",
+  "author": "Ryan Fitzgerald",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^4.0.0",
