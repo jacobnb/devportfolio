@@ -11,15 +11,6 @@
 
 */
 
-$('#PlayGame').click(function(){
-    window.requestAnimationFrame(gameLoop);
-});
-function gameLoop(deltaTime){
-    console.log(deltaTime);
-    window.requestAnimationFrame(gameLoop);
-}
-
-
 (function ($) {
 
     // Remove no-js class
@@ -107,13 +98,6 @@ function gameLoop(deltaTime){
     });
 })(jQuery);
 
-$("#startGame").click( function(){
-    $("body#plain").replaceWith(
-        '<body>'+
-        '<canvas></canvas>'+
-        '</body>'
-    );
-});
 
 
 // https://medium.com/@mariusc23/hide-header-on-scroll-down-show-on-scroll-up-67bbaae9a78c
