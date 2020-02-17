@@ -41,11 +41,36 @@ $("#startGame").click();
 
 function gameLoop(deltaTime) {
     updateSnakePosition();
+    collisionManager();
     setTimeout(() => {
         window.requestAnimationFrame(gameLoop)
     }, GAME_LOOP_TIME);
 }
 
+function collisionManager(){
+    let arr = $("div#food").toArray();
+    let snakeBox = snake.snakeHead.getBoundingClientRect();
+    arr.forEach(element => {
+        let foodBox = element.getBoundingClientRect();
+        let colX=false, colY=false;
+        if(snakeBox.x > foodBox.x){
+            colX = (foodBox.x + foodBox.width) > snakeBox.x;
+        }
+        else{
+            colX = (snakeBox.x + snakeBox.width) > foodBox.x;
+        }
+        if(snakeBox.y > foodBox.y){
+            colY = (foodBox.y + foodBox.width) > snakeBox.y;
+        }
+        else{
+            colY = (snakeBox.y + snakeBox.width) > foodBox.y;
+        }
+        if(colY && colX){
+            element.remove();
+        }
+    });
+    // TODO: check for snake body
+}
 
 function updateSnakePosition() {
     switch (input.currentKey) {
