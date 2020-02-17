@@ -28,6 +28,12 @@ $("#startGame").click(function () {
     $('#PlayGame').click(function () {
         window.requestAnimationFrame(gameLoop);
     });
+    let testButton = '<a href="#" class="btn-rounded-white" id="testButton">Test!</a>'
+    $("div#lead-content").append(testButton);
+    $('#testButton').click(function () {
+        replaceText("div#lead-content h1");
+        replaceText("div#lead-content h2");
+    });
 });
 
 //click the start! button so I don't have to.
