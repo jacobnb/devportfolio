@@ -1,15 +1,29 @@
 const GRID_SIZE = 2;
 const GAME_LOOP_TIME = 200;
+let GamePlaying = false;
 const input = {
     currentKey: null,
     curDirection: null
 }
+
+function makeSnake(x,y){
+    this.self= null,
+    this.position= {
+        x: x,
+        y: y
+    },
+    this.prev= null,
+    this.last= null
+}
+
 const snake = {
-    snakeHead: null,
+    self: null,
     position: {
         x: 0,
         y: 0
-    }
+    },
+    prev: null,
+    last: null
 }
 $("#startGame").click(function () {
     //Delete header
@@ -18,14 +32,15 @@ $("#startGame").click(function () {
     $("a[href$='JacobBiedermanResume.pdf']").hide();
 
     // make the snake head and add it to the screen
-    snake.snakeHead = document.createElement("div");
-    snake.snakeHead.classList.add("snake-head");
-    $("body").prepend(snake.snakeHead);
-
+    snake.self = document.createElement("div");
+    snake.self.classList.add("snake-head");
+    $("body").prepend(snake.self);
+    snake.last = snake;
     // Add play game button and click listener
     let playGame = '<a href="#" class="btn-rounded-white" id="PlayGame">Play Game!</a>'
     $("div#lead-content").append(playGame);
     $('#PlayGame').click(function () {
+        GamePlaying = true;
         window.requestAnimationFrame(gameLoop);
     });
     let testButton = '<a href="#" class="btn-rounded-white" id="testButton">Test!</a>'
@@ -35,6 +50,18 @@ $("#startGame").click(function () {
         replaceText("div#lead-content h2");
     });
 });
+function makeSnakeBody(x,y){
+    // add a body after last.
+    let snek = new makeSnake(x,y);
+    snek.self = document.createElement("div");
+    snek.self.classList.add("snake-body");
+    // snake body position is inherited then
+    $("body").prepend(snek.self);
+    snek.prev = snake.last;
+    snake.last = snek;
+    snek.self.style.marginTop = "1000 em";
+    snek.self.style.marginLeft = "1000 em";
+}
 
 //click the start! button so I don't have to.
 $("#startGame").click();
@@ -45,14 +72,16 @@ setTimeout(()=>{$("#PlayGame").click();}, .2);
 function gameLoop(deltaTime) {
     updateSnakePosition();
     collisionManager();
-    setTimeout(() => {
-        window.requestAnimationFrame(gameLoop)
-    }, GAME_LOOP_TIME);
+    if(GamePlaying){
+        setTimeout(() => {
+            window.requestAnimationFrame(gameLoop)
+        }, GAME_LOOP_TIME);
+    }
 }
 
 function collisionManager(){
     let arr = $("div#food").toArray();
-    let snakeBox = snake.snakeHead.getBoundingClientRect();
+    let snakeBox = snake.self.getBoundingClientRect();
     arr.forEach(element => {
         let foodBox = element.getBoundingClientRect();
         let colX=false, colY=false;
@@ -71,9 +100,33 @@ function collisionManager(){
         if(colY && colX){
             element.id = "";
             element.style = "";
+            makeSnakeBody(snake.position.x,snake.position.y);
+        }
+    });
+    arr = $("div.snake-body").toArray();
+    arr.forEach(element => {
+        let body = element.getBoundingClientRect();
+        let colX=false, colY=false;
+        if(snakeBox.x > body.x){
+            colX = (body.x + body.width) > snakeBox.x;
+        }
+        else{
+            colX = (snakeBox.x + snakeBox.width) > body.x;
+        }
+        if(snakeBox.y > body.y){
+            colY = (body.y + body.width) > snakeBox.y;
+        }
+        else{
+            colY = (snakeBox.y + snakeBox.width) > body.y;
+        }
+        if(colY && colX){
+            console.log("You Lose")
+            GamePlaying = false;
         }
     });
     // TODO: check for snake body
+    // TODO: check for edge of screen
+    // TODO: check for special buttons.
 }
 
 function updateSnakePosition() {
@@ -92,8 +145,16 @@ function updateSnakePosition() {
             break;
     }
     input.curDirection = input.currentKey;
-    snake.snakeHead.style.marginTop = snake.position.y + 'em';
-    snake.snakeHead.style.marginLeft = snake.position.x + 'em';
+
+    let snek = snake.last;
+    while(snek.prev != null){
+        snek.self.style.marginTop = snek.prev.self.style.marginTop;
+        snek.self.style.marginLeft = snek.prev.self.style.marginLeft;
+        snek = snek.prev;
+    }
+
+    snake.self.style.marginTop = snake.position.y + 'em';
+    snake.self.style.marginLeft = snake.position.x + 'em';
 }
 document.addEventListener("keydown", event => {
     switch (event.key) {
