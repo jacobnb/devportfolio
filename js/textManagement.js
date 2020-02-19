@@ -4,7 +4,7 @@ function replaceText(selector){
     [...text].forEach((char)=>{
         newTextString += '<div class="letter" id="food" style="top:'+
         Math.random()*2
-        +'em ">'+char+'</div>';
+        +'em; color:red">'+char+'</div>';
     });
     $(selector).html(newTextString);
 }

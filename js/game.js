@@ -38,6 +38,9 @@ $("#startGame").click(function () {
 
 //click the start! button so I don't have to.
 $("#startGame").click();
+setTimeout(()=>{$("#testButton").click();}, .2);
+setTimeout(()=>{$("#PlayGame").click();}, .2);
+
 
 function gameLoop(deltaTime) {
     updateSnakePosition();
@@ -66,7 +69,8 @@ function collisionManager(){
             colY = (snakeBox.y + snakeBox.width) > foodBox.y;
         }
         if(colY && colX){
-            element.remove();
+            element.id = "";
+            element.style = "";
         }
     });
     // TODO: check for snake body
