@@ -36,19 +36,10 @@ $("#startGame").click(function () {
     snake.self.classList.add("snake-head");
     $("body").prepend(snake.self);
     snake.last = snake;
-    // Add play game button and click listener
-    let playGame = '<a href="#" class="btn-rounded-white" id="PlayGame">Play Game!</a>'
-    $("div#lead-content").append(playGame);
-    $('#PlayGame').click(function () {
-        GamePlaying = true;
-        window.requestAnimationFrame(gameLoop);
-    });
-    let testButton = '<a href="#" class="btn-rounded-white" id="testButton">Test!</a>'
-    $("div#lead-content").append(testButton);
-    $('#testButton').click(function () {
-        replaceText("div#lead-content h1");
-        replaceText("div#lead-content h2");
-    });
+    GamePlaying = true;
+    window.requestAnimationFrame(gameLoop);
+    replaceText("div#lead-content h1");
+    replaceText("div#lead-content h2");
 });
 function makeSnakeBody(x,y){
     // add a body after last.
@@ -64,9 +55,9 @@ function makeSnakeBody(x,y){
 }
 
 //click the start! button so I don't have to.
-$("#startGame").click();
-setTimeout(()=>{$("#testButton").click();}, .2);
-setTimeout(()=>{$("#PlayGame").click();}, .2);
+// $("#startGame").click();
+// setTimeout(()=>{$("#testButton").click();}, .2);
+// setTimeout(()=>{$("#PlayGame").click();}, .2);
 
 
 function gameLoop(deltaTime) {
