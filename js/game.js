@@ -103,28 +103,18 @@ function collisionManager(){
             makeSnakeBody(snake.position.x,snake.position.y);
         }
     });
+    const pad = 1;
     arr = $("div.snake-body").toArray();
     arr.forEach(element => {
         let body = element.getBoundingClientRect();
         let colX=false, colY=false;
-        if(snakeBox.x > body.x){
-            colX = (body.x + body.width) > snakeBox.x;
-        }
-        else{
-            colX = (snakeBox.x + snakeBox.width) > body.x;
-        }
-        if(snakeBox.y > body.y){
-            colY = (body.y + body.width) > snakeBox.y;
-        }
-        else{
-            colY = (snakeBox.y + snakeBox.width) > body.y;
-        }
+        colX = snakeBox.left+pad < body.right && snakeBox.right-pad > body.left;
+        colY = snakeBox.top+pad < body.bottom && snakeBox.bottom-pad > body.top;
         if(colY && colX){
             console.log("You Lose")
             GamePlaying = false;
         }
     });
-    // TODO: check for snake body
     // TODO: check for edge of screen
     // TODO: check for special buttons.
 }
