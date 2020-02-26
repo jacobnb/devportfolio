@@ -4,7 +4,10 @@
   "description": "My portfolio website, modified from Ryan Fitzgerald's template",
   "main": "js/scripts.js",
   "scripts": {
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "styles": "gulp styles",
+    "scripts": "gulp scripts",
+    "build": "styles scripts"
   },
   "keywords": [
     "portfolio",
@@ -14,10 +17,12 @@
     "coding",
     "dev"
   ],
-  "author": "Jacob Biederman",
   "author": "Ryan Fitzgerald",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-plumber": "^1.2.0",
@@ -25,5 +30,9 @@
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.1",
     "gulp-wait": "0.0.2"
+  },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "gulp-babel": "^8.0.0"
   }
 }

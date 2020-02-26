@@ -1,5 +1,5 @@
 function replaceText(selector){
-    let newTextString="";
+    var newTextString="";
     let text = $(selector).text();
     [...text].forEach((char)=>{
         newTextString += '<div class="letter" id="food" style="top:'+

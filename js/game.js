@@ -30,6 +30,11 @@ $("#startGame").click(function () {
     $("header.sticky").hide();
     $("body#plain").addClass("disable-scroll");
     $("a[href$='JacobBiedermanResume.pdf']").hide();
+    
+    var wip = document.createElement("div");
+    wip.style = "position:fixed; width:100%; height:fit-content; z-index:2; background-color: yellow";
+    wip.innerHTML = "<p style='text-align:center; font-size:2em;font-weight:999;margin-top:2px;margin-bottom:2px'>Work In Progress</p>";
+    $("body").prepend(wip);
 
     // make the snake head and add it to the screen
     snake.self = document.createElement("div");
