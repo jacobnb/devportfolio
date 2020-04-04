@@ -60,6 +60,7 @@ function gameLoop(deltaTime) {
 function collisionManager(){
     let arr = $("div#food").toArray();
     let snakeBox = snake1.self.getBoundingClientRect();
+    let snakeBox2 = snake2.self.getBoundingClientRect();
     arr.forEach(element => {
         let foodBox = element.getBoundingClientRect();
         let colX=false, colY=false;
@@ -80,6 +81,24 @@ function collisionManager(){
             element.style = "";
             makeSnakeBody(snake1.position.x,snake1.position.y, snake1);
         }
+
+        if(snakeBox2.x > foodBox.x){
+            colX = (foodBox.x + foodBox.width) > snakeBox2.x;
+        }
+        else{
+            colX = (snakeBox2.x + snakeBox2.width) > foodBox.x;
+        }
+        if(snakeBox2.y > foodBox.y){
+            colY = (foodBox.y + foodBox.width) > snakeBox2.y;
+        }
+        else{
+            colY = (snakeBox2.y + snakeBox2.width) > foodBox.y;
+        }
+        if(colY && colX){
+            element.id = "";
+            element.style = "";
+            makeSnakeBody(snake2.position.x,snake2.position.y, snake2);
+        }
     });
     const pad = 1;
     arr = $("div.snake-body").toArray();
@@ -89,7 +108,13 @@ function collisionManager(){
         colX = snakeBox.left+pad < body.right && snakeBox.right-pad > body.left;
         colY = snakeBox.top+pad < body.bottom && snakeBox.bottom-pad > body.top;
         if(colY && colX){
-            console.log("You Lose")
+            console.log("Player 1 Loses");
+            GamePlaying = false;
+        }
+        colX = snakeBox2.left+pad < body.right && snakeBox2.right-pad > body.left;
+        colY = snakeBox2.top+pad < body.bottom && snakeBox2.bottom-pad > body.top;
+        if(colY && colX){
+            console.log("Player 2 Loses");
             GamePlaying = false;
         }
     });

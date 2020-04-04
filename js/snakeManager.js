@@ -18,6 +18,4 @@ function makeSnakeBody(x,y, head){
     $("body").prepend(snek.self);
     snek.prev = head.last;
     head.last = snek;
-    snek.self.style.marginTop = "1000 em";
-    snek.self.style.marginLeft = "1000 em";
 }
