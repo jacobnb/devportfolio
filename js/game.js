@@ -1,29 +1,16 @@
 const GRID_SIZE = 2;
 const GAME_LOOP_TIME = 200;
 let GamePlaying = false;
-const input = {
+var snake1;
+snake1 = new Snake(0,0);
+var snake2 = new Snake(60,0);
+const input1 = {
     currentKey: null,
     curDirection: null
 }
-
-function makeSnake(x,y){
-    this.self= null,
-    this.position= {
-        x: x,
-        y: y
-    },
-    this.prev= null,
-    this.last= null
-}
-
-const snake = {
-    self: null,
-    position: {
-        x: 0,
-        y: 0
-    },
-    prev: null,
-    last: null
+const input2 = {
+    currentKey: null,
+    curDirection: null
 }
 $("#startGame").click(function () {
     //Delete header
@@ -35,30 +22,24 @@ $("#startGame").click(function () {
     wip.style = "position:fixed; width:100%; height:fit-content; z-index:2; background-color: yellow";
     wip.innerHTML = "<p style='text-align:center; font-size:2em;font-weight:999;margin-top:2px;margin-bottom:2px'>Work In Progress</p>";
     $("body").prepend(wip);
-
     // make the snake head and add it to the screen
-    snake.self = document.createElement("div");
-    snake.self.classList.add("snake-head");
-    $("body").prepend(snake.self);
-    snake.last = snake;
+    snake1.self = document.createElement("div");
+    snake1.self.classList.add("snake-head");
+    $("body").prepend(snake1.self);
+    snake1.last = snake1;
+
+    snake2.self = document.createElement("div");
+    snake2.self.classList.add("snake-head");
+    $("body").prepend(snake2.self);
+    snake2.last = snake2;
+    
     GamePlaying = true;
     window.requestAnimationFrame(gameLoop);
     replaceText("div#lead-content h1");
     replaceText("div#lead-content h2");
 });
-function makeSnakeBody(x,y){
-    // add a body after last.
-    let snek = new makeSnake(x,y);
-    snek.self = document.createElement("div");
-    snek.self.classList.add("snake-body");
-    // snake body position is inherited then
-    $("body").prepend(snek.self);
-    snek.prev = snake.last;
-    snake.last = snek;
-    snek.self.style.marginTop = "1000 em";
-    snek.self.style.marginLeft = "1000 em";
-}
 
+ 
 //click the start! button so I don't have to.
 // $("#startGame").click();
 // setTimeout(()=>{$("#testButton").click();}, .2);
@@ -66,7 +47,8 @@ function makeSnakeBody(x,y){
 
 
 function gameLoop(deltaTime) {
-    updateSnakePosition();
+    updateSnakePosition(snake1, input1);
+    updateSnakePosition(snake2, input2);
     collisionManager();
     if(GamePlaying){
         setTimeout(() => {
@@ -77,7 +59,7 @@ function gameLoop(deltaTime) {
 
 function collisionManager(){
     let arr = $("div#food").toArray();
-    let snakeBox = snake.self.getBoundingClientRect();
+    let snakeBox = snake1.self.getBoundingClientRect();
     arr.forEach(element => {
         let foodBox = element.getBoundingClientRect();
         let colX=false, colY=false;
@@ -96,7 +78,7 @@ function collisionManager(){
         if(colY && colX){
             element.id = "";
             element.style = "";
-            makeSnakeBody(snake.position.x,snake.position.y);
+            makeSnakeBody(snake1.position.x,snake1.position.y, snake1);
         }
     });
     const pad = 1;
@@ -115,7 +97,7 @@ function collisionManager(){
     // TODO: check for special buttons.
 }
 
-function updateSnakePosition() {
+function updateSnakePosition(snake, input) {
     switch (input.currentKey) {
         case "Left":
                 snake.position.x -= GRID_SIZE;
@@ -142,30 +124,47 @@ function updateSnakePosition() {
     snake.self.style.marginTop = snake.position.y + 'em';
     snake.self.style.marginLeft = snake.position.x + 'em';
 }
+
 document.addEventListener("keydown", event => {
     switch (event.key) {
         case "ArrowLeft":
+            if(input1.curDirection!="Right")
+            input1.currentKey = "Left";
+            event.preventDefault();
+            break;
         case "a":
-            if(input.curDirection!="Right")
-            input.currentKey = "Left";
+            if(input2.curDirection!="Right")
+            input2.currentKey = "Left";
             event.preventDefault();
             break;
         case "ArrowDown":
+            if(input1.curDirection != "Up")
+            input1.currentKey = "Down";
+            event.preventDefault();
+            break;
         case "s":
-            if(input.curDirection != "Up")
-            input.currentKey = "Down";
+            if(input2.curDirection != "Up")
+            input2.currentKey = "Down";
             event.preventDefault();
             break;
         case "ArrowUp":
+             if(input1.curDirection != "Down")
+            input1.currentKey = "Up";
+            event.preventDefault();
+            break;
         case "w":
-            if(input.curDirection != "Down")
-            input.currentKey = "Up";
+            if(input2.curDirection != "Down")
+            input2.currentKey = "Up";
             event.preventDefault();
             break;
         case "ArrowRight":
+            if(input1.curDirection != "Left")
+            input1.currentKey = "Right";
+            event.preventDefault();
+            break;
         case "d":
-            if(input.curDirection != "Left")
-            input.currentKey = "Right";
+            if(input2.curDirection != "Left")
+            input2.currentKey = "Right";
             event.preventDefault();
             break;
 
