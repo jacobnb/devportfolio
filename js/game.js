@@ -2,6 +2,7 @@ const GRID_SIZE = 2;
 const GAME_LOOP_TIME = 200;
 let GamePlaying = false;
 var snake1;
+let date = new Date();
 snake1 = new Snake(0,0);
 var snake2 = new Snake(60,0);
 const input1 = {
@@ -27,12 +28,18 @@ $("#startGame").click(function () {
     snake1.self.classList.add("snake-head");
     $("body").prepend(snake1.self);
     snake1.last = snake1;
+    snake1.startTime = date.getTime();
+    snake1.name = "Player 1";
+    snake1.alive = true;
 
     snake2.self = document.createElement("div");
     snake2.self.classList.add("snake-head");
     $("body").prepend(snake2.self);
     snake2.last = snake2;
-    
+    snake2.startTime = date.getTime();
+    snake2.name = "Player 2";
+    snake2.alive = true;
+
     GamePlaying = true;
     window.requestAnimationFrame(gameLoop);
     replaceText("div#lead-content h1");
@@ -47,9 +54,8 @@ $("#startGame").click(function () {
 
 
 function gameLoop(deltaTime) {
-    updateSnakePosition(snake1, input1);
-    updateSnakePosition(snake2, input2);
-    collisionManager();
+    updateSnake(snake1, input1);
+    updateSnake(snake2, input2);
     if(GamePlaying){
         setTimeout(() => {
             window.requestAnimationFrame(gameLoop)
@@ -57,10 +63,9 @@ function gameLoop(deltaTime) {
     }
 }
 
-function collisionManager(){
+function collisionManager(snake){
     let arr = $("div#food").toArray();
-    let snakeBox = snake1.self.getBoundingClientRect();
-    let snakeBox2 = snake2.self.getBoundingClientRect();
+    let snakeBox = snake.self.getBoundingClientRect();
     arr.forEach(element => {
         let foodBox = element.getBoundingClientRect();
         let colX=false, colY=false;
@@ -79,25 +84,7 @@ function collisionManager(){
         if(colY && colX){
             element.id = "";
             element.style = "";
-            makeSnakeBody(snake1.position.x,snake1.position.y, snake1);
-        }
-
-        if(snakeBox2.x > foodBox.x){
-            colX = (foodBox.x + foodBox.width) > snakeBox2.x;
-        }
-        else{
-            colX = (snakeBox2.x + snakeBox2.width) > foodBox.x;
-        }
-        if(snakeBox2.y > foodBox.y){
-            colY = (foodBox.y + foodBox.width) > snakeBox2.y;
-        }
-        else{
-            colY = (snakeBox2.y + snakeBox2.width) > foodBox.y;
-        }
-        if(colY && colX){
-            element.id = "";
-            element.style = "";
-            makeSnakeBody(snake2.position.x,snake2.position.y, snake2);
+            makeSnakeBody(snake.position.x,snake.position.y, snake);
         }
     });
     const pad = 1;
@@ -108,47 +95,15 @@ function collisionManager(){
         colX = snakeBox.left+pad < body.right && snakeBox.right-pad > body.left;
         colY = snakeBox.top+pad < body.bottom && snakeBox.bottom-pad > body.top;
         if(colY && colX){
-            console.log("Player 1 Loses");
-            GamePlaying = false;
-        }
-        colX = snakeBox2.left+pad < body.right && snakeBox2.right-pad > body.left;
-        colY = snakeBox2.top+pad < body.bottom && snakeBox2.bottom-pad > body.top;
-        if(colY && colX){
-            console.log("Player 2 Loses");
-            GamePlaying = false;
+            console.log(snake.name + " Lasted "+ (new Date().getTime() - snake.startTime)/1000 + " seconds");
+            snake.alive = false;
         }
     });
     // TODO: check for edge of screen
     // TODO: check for special buttons.
 }
 
-function updateSnakePosition(snake, input) {
-    switch (input.currentKey) {
-        case "Left":
-                snake.position.x -= GRID_SIZE;
-            break;
-        case "Right":
-                snake.position.x += GRID_SIZE;
-            break;
-        case "Up":
-                snake.position.y -= GRID_SIZE;
-            break;
-        case "Down":
-                snake.position.y += GRID_SIZE;
-            break;
-    }
-    input.curDirection = input.currentKey;
 
-    let snek = snake.last;
-    while(snek.prev != null){
-        snek.self.style.marginTop = snek.prev.self.style.marginTop;
-        snek.self.style.marginLeft = snek.prev.self.style.marginLeft;
-        snek = snek.prev;
-    }
-
-    snake.self.style.marginTop = snake.position.y + 'em';
-    snake.self.style.marginLeft = snake.position.x + 'em';
-}
 
 document.addEventListener("keydown", event => {
     switch (event.key) {
