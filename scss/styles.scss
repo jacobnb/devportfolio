@@ -1075,3 +1075,19 @@ footer {
     text-decoration: none;
     cursor: pointer;
 }
+
+.btn-done {
+    display: inline-block;
+    color: $base-color;
+    padding: 15px 25px;
+    border: 3px solid #fff;
+    border-radius: 30px;
+    justify-content: center;
+    @include transition();
+
+    &:hover {
+        color: $base-color;
+        background: rgb(125, 140, 163);
+        text-decoration: none;
+    }
+}
