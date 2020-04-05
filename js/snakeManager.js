@@ -24,10 +24,23 @@ function killSnake(snakeHead){
 
 }
 
+function getScore(snakeHead){
+    let score=0;
+    let snek=snakeHead.last;
+    while(snek != snakeHead){
+        snek=snek.prev;
+        score++;
+    }
+    return score;
+}
 function updateSnake(snakeHead, input){
     if(snakeHead.alive){
         updateSnakePosition(snakeHead, input);
         collisionManager(snakeHead);
+        return true;
+    }
+    else{
+        return false;
     }
 }
 

@@ -54,8 +54,13 @@ $("#startGame").click(function () {
 
 
 function gameLoop(deltaTime) {
-    updateSnake(snake1, input1);
-    updateSnake(snake2, input2);
+    let shouldPlay = true;
+    shouldPlay = shouldPlay && updateSnake(snake1, input1);
+    shouldPlay = shouldPlay && updateSnake(snake2, input2);
+    if(!shouldPlay){
+        GamePlaying = false;
+        displayScore(getScore(snake1), getScore(snake2));
+    }
     if(GamePlaying){
         setTimeout(() => {
             window.requestAnimationFrame(gameLoop)
