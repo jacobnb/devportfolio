@@ -13,7 +13,9 @@ const input2 = {
     currentKey: null,
     curDirection: null
 }
-$("#startGame").click(function () {
+$("#startGame").click(()=>{displayStartModal();});
+$("#play-single").click(()=>{hideStartModal(); startLocal();});
+function startLocal() {
     //Delete header
     $("header.sticky").hide();
     $("body#plain").addClass("disable-scroll");
@@ -44,7 +46,7 @@ $("#startGame").click(function () {
     window.requestAnimationFrame(gameLoop);
     replaceText("div#lead-content h1");
     replaceText("div#lead-content h2");
-});
+};
 
  
 //click the start! button so I don't have to.

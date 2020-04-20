@@ -50,12 +50,23 @@
         </header>
         <!-- End header -->
 
-        <div id="score" class="score-modal">
-            <div class="score-content">
+        <div id="score" class="modal modal-score">
+            <div class="content score-content">
             </div> 
         </div>
-        <!-- End score-modal -->
-
+        <!-- End modal-score -->
+        <div class="modal play-modal" id="play-modal">
+            <div class="content">
+                <button id='play-single'>Play Single Player</button>
+            </br>
+                <button id='get-id'>Get Connection Code</button>
+                <p id="connection-id">12345</p>
+                <p id="title">Enter Opponents Code:</p>
+                <input name='ID' id="ID" title='connection code'></input>
+                <button id="connect">Connect</button>
+            </div>
+        </div>
+        <!-- End play-modal -->
         <div id="lead">
             <div id="lead-content">
                 <h1>Jacob Biederman</h1>
@@ -294,6 +305,7 @@
         <!-- End footer -->
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
         <!-- <script src="scripts/jquery-3.4.1.min.js"></script> -->
         <!-- <script src="js/scripts.js"></script>
         <script src="js/game.js"></script>
@@ -303,6 +315,8 @@
         <script src="scripts/score.min.js"></script>
         <script src="scripts/game.min.js"></script>
         <script src="scripts/textManagement.min.js"></script>
+        <script src="scripts/startModal.min.js"></script>
+        <script src="scripts/network.min.js"></script>
     </body>
 
 </html>
