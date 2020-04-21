@@ -46,6 +46,7 @@ function startLocal() {
     window.requestAnimationFrame(gameLoop);
     replaceText("div#lead-content h1");
     replaceText("div#lead-content h2");
+    addInputListener();
 };
 
  
@@ -61,6 +62,7 @@ function gameLoop(deltaTime) {
     shouldPlay = shouldPlay && updateSnake(snake2, input2);
     if(!shouldPlay){
         GamePlaying = false;
+        removeInputListener();
         displayScore(getScore(snake1), getScore(snake2));
     }
     if(GamePlaying){
@@ -111,50 +113,56 @@ function collisionManager(snake){
 }
 
 
+function removeInputListener(){
+    document.removeEventListener("keydown", inputListener)
+}
+function addInputListener(){
+    document.addEventListener("keydown", inputListener(event));
+}
 
-document.addEventListener("keydown", event => {
-    switch (event.key) {
-        case "ArrowLeft":
-            if(input1.curDirection!="Right")
-            input1.currentKey = "Left";
-            event.preventDefault();
-            break;
-        case "a":
-            if(input2.curDirection!="Right")
-            input2.currentKey = "Left";
-            event.preventDefault();
-            break;
-        case "ArrowDown":
-            if(input1.curDirection != "Up")
-            input1.currentKey = "Down";
-            event.preventDefault();
-            break;
-        case "s":
-            if(input2.curDirection != "Up")
-            input2.currentKey = "Down";
-            event.preventDefault();
-            break;
-        case "ArrowUp":
-             if(input1.curDirection != "Down")
-            input1.currentKey = "Up";
-            event.preventDefault();
-            break;
-        case "w":
-            if(input2.curDirection != "Down")
-            input2.currentKey = "Up";
-            event.preventDefault();
-            break;
-        case "ArrowRight":
-            if(input1.curDirection != "Left")
-            input1.currentKey = "Right";
-            event.preventDefault();
-            break;
-        case "d":
-            if(input2.curDirection != "Left")
-            input2.currentKey = "Right";
-            event.preventDefault();
-            break;
-
-    }
-
-});
+function inputListener(event)
+    {
+        switch (event.key) {
+            case "ArrowLeft":
+                if(input1.curDirection!="Right")
+                input1.currentKey = "Left";
+                event.preventDefault();
+                break;
+            case "a":
+                if(input2.curDirection!="Right")
+                input2.currentKey = "Left";
+                event.preventDefault();
+                break;
+            case "ArrowDown":
+                if(input1.curDirection != "Up")
+                input1.currentKey = "Down";
+                event.preventDefault();
+                break;
+            case "s":
+                if(input2.curDirection != "Up")
+                input2.currentKey = "Down";
+                event.preventDefault();
+                break;
+            case "ArrowUp":
+                 if(input1.curDirection != "Down")
+                input1.currentKey = "Up";
+                event.preventDefault();
+                break;
+            case "w":
+                if(input2.curDirection != "Down")
+                input2.currentKey = "Up";
+                event.preventDefault();
+                break;
+            case "ArrowRight":
+                if(input1.curDirection != "Left")
+                input1.currentKey = "Right";
+                event.preventDefault();
+                break;
+            case "d":
+                if(input2.curDirection != "Left")
+                input2.currentKey = "Right";
+                event.preventDefault();
+                break;
+    
+        }
+}

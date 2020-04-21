@@ -1,12 +1,9 @@
 // Get the modal
 var startModal = document.getElementById("play-modal");
 
-$("#get-id").click(()=>{
-    initNetwork(setID);
-});
-
 function displayStartModal(){
     startModal.style.display="block";
+    initNetwork(setID);
 }
 function hideStartModal(){
     console.log("Hiding start modal");
@@ -14,5 +11,13 @@ function hideStartModal(){
 }
 
 function setID(ID){
-    $("#connection-id").text(ID);
+    $("#connection-id").text("Connection Code: " + ID);
 }
+
+$('#connect').click(()=>{
+    let id = $('#ID').val();
+    if(id.length > 10){ // very minimal check. not sure exact code characteristics
+        destID = id;
+        join();
+    }
+})
