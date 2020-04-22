@@ -94,11 +94,7 @@ function join() {
 
     conn.on('open', function () {
         console.log("Connected to: " + conn.peer);
-
-        // // Check URL params for comamnds that should be sent immediately
-        // var command = getUrlParam("command");
-        // if (command)
-        //     conn.send(command);
+        
     });
     // Handle incoming data (messages only since this is the signal sender)
     conn.on('data', function (data) {
