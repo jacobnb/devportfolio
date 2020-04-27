@@ -1,11 +1,11 @@
-const GRID_SIZE = 2;
+const GRID_SIZE = 30;
 const GAME_LOOP_TIME = 200;
 let GamePlaying = false;
 var snake1;
 let date = new Date();
 snake1 = new Snake(0,0);
 const input1 = {
-    currentKey: null,
+    currentKey: "Down",
     curDirection: null
 }
 $("#startGame").click(()=>{displayStartModal();});

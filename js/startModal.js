@@ -19,5 +19,14 @@ $('#connect').click(()=>{
     if(id.length > 10){ // very minimal check. not sure exact code characteristics
         destID = id;
         join();
+        snake1.position.x = 0;
+        snake1.position.y = 0;
+        snake2.position.x = 60;
+        snake2.position.y = 0;
     }
+})
+
+$('#start-game').click(()=>{
+    hideStartModal();
+    start_multi();
 })

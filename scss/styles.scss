@@ -1018,22 +1018,22 @@ footer {
 .snake-head {
     position: absolute;
     background-color: greenyellow;
-    height: 2em;
-    width: 2em;
+    height: 30px;
+    width: 30px;
     z-index: 100;
 }
 .snake-body {
     position: absolute;
     background-color: coral;
-    height: 2em;
-    width: 2em;
+    height: 30px;
+    width: 30px;
     z-index: 99;
 }
 .letter {
     position: relative;
     display: inline;
-    line-height: 4em;
-    letter-spacing: 1em;
+    line-height: 100px;
+    letter-spacing: 50px;
 }
 
 .modal {

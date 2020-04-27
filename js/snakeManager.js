@@ -6,6 +6,7 @@ let Snake = function(x,y){
     };
     this.prev= null;
     this.last= null;
+    this.lastUpdateTime = 0;
 };
 
  
@@ -68,6 +69,6 @@ function updateSnakePosition(snake, input) {
         snek = snek.prev;
     }
 
-    snake.self.style.marginTop = snake.position.y + 'em';
-    snake.self.style.marginLeft = snake.position.x + 'em';
+    snake.self.style.marginTop = snake.position.y + 'px';
+    snake.self.style.marginLeft = snake.position.x + 'px';
 }
