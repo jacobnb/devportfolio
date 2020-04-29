@@ -9,8 +9,13 @@ let Snake = function(x,y){
     this.lastUpdateTime = 0;
 };
 
- 
+var snakeLength = 0;
 function makeSnakeBody(x,y, head){
+    snakeLength++;
+    console.log(snakeLength);
+    if(snakeLength > 49){
+        head.alive = false;
+    }
     // add a body after last.
     let snek = new Snake(x,y);
     snek.self = document.createElement("div");
@@ -19,6 +24,8 @@ function makeSnakeBody(x,y, head){
     $("body").prepend(snek.self);
     snek.prev = head.last;
     head.last = snek;
+    snek.self.style.marginTop = '5000px';
+    snek.self.style.marginLeft = '5000px';
 }
 
 function killSnake(snakeHead){

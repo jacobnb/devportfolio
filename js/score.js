@@ -16,7 +16,12 @@ function displayScore_multi(score1, score2){
 }
 function displayScore(score){
     modal.style.display = "block";
-    $("div.score-content").append('<h1 class="score-header">Game Over!</h1>');
+    if(score >= 47){
+        $("div.score-content").append('<h1 class="score-header">You Win!</h1>');
+    }
+    else{
+        $("div.score-content").append('<h1 class="score-header">Game Over!</h1>');
+    }
     $("div.score-content").append("<p>You Scored: " + score);
     $("div.score-content").append('<div style="text-align: center;">'+
     '<div onClick="startHelper()" class="btn-done">Done</div>'+

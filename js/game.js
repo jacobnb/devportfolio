@@ -17,6 +17,7 @@ $("#play-single").click(()=>{
 function startLocal() {
     //Delete header
     $("header.sticky").hide();
+    $("#lead-down").hide();
     $("body#plain").addClass("disable-scroll");
     $("a[href$='JacobBiedermanResume.pdf']").hide();
     
@@ -45,7 +46,6 @@ function startLocal() {
 // $("#startGame").click();
 // setTimeout(()=>{$("#testButton").click();}, .2);
 // setTimeout(()=>{$("#PlayGame").click();}, .2);
-
 
 function gameLoop(deltaTime) {
     let shouldPlay = true;
@@ -100,7 +100,6 @@ function collisionManager(snake){
     });
     let colX = false;
     let colY = false;
-    console.log(snakeBox.top + ", "+ snakeBox.bottom + ", "+ window.screen.height);
     colX = !(snakeBox.right <= window.screen.width && snakeBox.left >= 0);
     colY = !(snakeBox.bottom <= window.screen.height-100 && snakeBox.top >= 0);
     if(colY || colX){
