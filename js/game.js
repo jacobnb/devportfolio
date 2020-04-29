@@ -98,7 +98,15 @@ function collisionManager(snake){
             snake.alive = false;
         }
     });
-    // TODO: check for edge of screen
+    let colX = false;
+    let colY = false;
+    console.log(snakeBox.top + ", "+ snakeBox.bottom + ", "+ window.screen.height);
+    colX = !(snakeBox.right <= window.screen.width && snakeBox.left >= 0);
+    colY = !(snakeBox.bottom <= window.screen.height-100 && snakeBox.top >= 0);
+    if(colY || colX){
+        console.log(snake.name + " Lasted "+ (new Date().getTime() - snake.startTime)/1000 + " seconds");
+        snake.alive = false;
+    }
     // TODO: check for special buttons.
 }
 
