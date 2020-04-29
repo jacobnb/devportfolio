@@ -1,6 +1,5 @@
 // Get the modal
 var startModal = document.getElementById("play-modal");
-
 function displayStartModal(){
     startModal.style.display="block";
     initNetwork(setID);
