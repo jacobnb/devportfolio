@@ -13,7 +13,7 @@ var snakeLength = 0;
 function makeSnakeBody(x,y, head){
     snakeLength++;
     console.log(snakeLength);
-    if(snakeLength > 49){
+    if(snakeLength > 46){
         head.alive = false;
     }
     // add a body after last.

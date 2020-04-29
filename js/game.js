@@ -8,7 +8,10 @@ const input1 = {
     currentKey: "Down",
     curDirection: null
 }
-$("#startGame").click(()=>{displayStartModal();});
+$("#startGame").click(()=>{
+    startLocal();
+    //displayStartModal();
+});
 $("#play-single").click(()=>{
     hideStartModal(); 
     startLocal();
@@ -66,6 +69,7 @@ function collisionManager(snake){
     let arr = $("div#food").toArray();
     let snakeBox = snake.self.getBoundingClientRect();
     arr.forEach(element => {
+        console.log();
         let foodBox = element.getBoundingClientRect();
         let colX=false, colY=false;
         if(snakeBox.x > foodBox.x){
@@ -83,7 +87,8 @@ function collisionManager(snake){
         if(colY && colX){
             element.id = "";
             element.style = "";
-            makeSnakeBody(snake.position.x,snake.position.y, snake);
+            if(element.innerHTML != " ")
+                makeSnakeBody(snake.position.x,snake.position.y, snake);
         }
     });
     const pad = 1;
