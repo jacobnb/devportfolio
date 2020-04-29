@@ -2,8 +2,8 @@
 var startModal = document.getElementById("play-modal");
 function displayStartModal(){
     startModal.style.display="block";
-    //initNetwork(setID);
-    setID("100");
+    initNetwork(setID);
+    //setID("100");
 }
 function hideStartModal(){
     console.log("Hiding start modal");
@@ -12,35 +12,28 @@ function hideStartModal(){
 
 function setID(ID){
     $("#connection-id").text("Connection Code: " + ID);
-    // https://stackoverflow.com/questions/15757750/how-can-i-call-php-functions-by-javascript
-    $.ajax({
-        type: "POST",
-        url: "php/connection.php",
-        dataType: 'json',
-        data: {funcName: 'readConnectionIDS'},
-        success: function (obj, textstatus){
-            if(!('error' in obj)){
-                console.log("Success ajax");
+    //makeRequest(makeData('initFile'));
+    makeRequest(makeData('writeConnectionID', ID));
+    function parseIDs(connectionIDs){
+        let validIDs = [];
+        connectionIDs.result.forEach(element => {
+            element = element.slice(0, -2);
+            if(element != ID){
+                console.log(ID + " != " + element);
+                validIDs.push(element);
             }
-            else{
-                console.log(obj.error);
-            }
-        },
-        error: function(obj){
-            console.log("Error "+ obj);
-        },
-        timeout : "100"
-    })
-    .done(function(){
-        console.log("success");
-    })
-    .fail(function(){
-        console.log("fail in setID");
-    })
-    .always(function(){
-        console.log("completed");
-    });
+        });
+        console.log(validIDs);
+        if(validIDs.length > 0){
+            destID = validIDs[0];
+            join();
+        }
+    }
+    makeRequest(makeData('readConnectionIDS'), parseIDs);
+    
+    
 }
+
 
 $('#connect').click(()=>{
     let id = $('#ID').val();

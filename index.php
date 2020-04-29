@@ -321,6 +321,7 @@ echo'
         <script src="scripts/network.min.js"></script>
         <script src="scripts/game_multiplayer.min.js"></script>
         <script src="scripts/peer.min.js"></script>
+        <script src="scripts/ajax.min.js"></script>
     </body>
 
 </html>';
