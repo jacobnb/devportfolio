@@ -2,6 +2,7 @@ const input2 = {
     currentKey: "Down",
     curDirection: null
 }
+var isConnected=false;
 var snake2 = new Snake(60,0);
 var prevUpdateTime = 0;
 const NETWORK_TIME = 20;

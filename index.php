@@ -61,10 +61,11 @@ echo'
             <div class="content">
                 <button id="play-single">Play Single Player</button>
             </br>
-                <p id="connection-id">12345</p>
-                <p id="title">Enter Opponents Code:</p>
-                <input name="ID" id="ID"></input>
-                <button id="connect">Connect</button>
+            <!--<p id="connection-id">12345</p>-->
+            <!--<p id="title">Enter Opponents Code:</p>-->
+            <!--<input name="ID" id="ID"></input>-->
+            <!--<button id="connect">Connect</button>-->
+                <button id="reset">Reset Connections File</button>
                 <button id="start-game">Start Game</button>
             </div>
         </div>

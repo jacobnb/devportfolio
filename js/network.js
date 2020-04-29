@@ -70,6 +70,7 @@ function ready() {
                     break;
                 case "repText":
                     replaceTextPredifined(data.arr, data.selector);
+                    isConnected = true;
                     break;
                 default:
                     console.log(data);
@@ -124,6 +125,7 @@ function join() {
         mes.selector = "div#lead-content h2";
         replaceTextPredifined(mes.arr, mes.selector);
         sendMessage(mes);
+        isConnected = true;
     });
     // // Handle incoming data (messages only since this is the signal sender)
     // conn.on('data', function (data) {

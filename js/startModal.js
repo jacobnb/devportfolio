@@ -12,7 +12,7 @@ function hideStartModal(){
 
 function setID(ID){
     $("#connection-id").text("Connection Code: " + ID);
-    //makeRequest(makeData('initFile'));
+    
     makeRequest(makeData('writeConnectionID', ID));
     function parseIDs(connectionIDs){
         let validIDs = [];
@@ -31,9 +31,7 @@ function setID(ID){
     }
     makeRequest(makeData('readConnectionIDS'), parseIDs);
     
-    
 }
-
 
 $('#connect').click(()=>{
     let id = $('#ID').val();
@@ -46,8 +44,15 @@ $('#connect').click(()=>{
         snake2.position.y = 0;
     }
 })
-
+$('#reset').click(()=>{
+    makeRequest(makeData('initFile'));
+    location.reload();
+})
 $('#start-game').click(()=>{
+    if(!isConnected){
+        alert("Not connected to another player");
+        return;
+    }
     hideStartModal();
     start_multi();
 })
